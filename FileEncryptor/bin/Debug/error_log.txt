@@ -1,0 +1,4 @@
+[5/23/2025 9:54:46 AM] Ошибка: Ошибка регистрации: Пользователь с таким именем уже зарегистрирован
+   в FileEncryptor.LoginForm.RegisterUser(String username, String password) в C:\Users\nmart\OneDrive\Рабочий стол\FileEncryptor_FIX\FileEncryptor\LoginForm.cs:строка 257
+   в FileEncryptor.LoginForm.btnRegister_Click(Object sender, EventArgs e) в C:\Users\nmart\OneDrive\Рабочий стол\FileEncryptor_FIX\FileEncryptor\LoginForm.cs:строка 75
+

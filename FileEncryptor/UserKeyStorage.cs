@@ -1,197 +1,207 @@
-﻿using System;
+﻿//using System;
+//using System.IO;
+//using System.Security.Cryptography;
+//using System.Text;
+
+//namespace FileEncryptor
+//{
+//    public class UserKeyStorage
+//    {
+//        private readonly string _keyDirectory;
+//        private readonly string _privateKeyPath;
+//        private readonly string _publicKeyPath;
+
+//        public UserKeyStorage(string username)
+//        {
+//            _keyDirectory = Path.Combine("UserData", username, "Keys");
+//            _privateKeyPath = Path.Combine(_keyDirectory, "private.key");
+//            _publicKeyPath = Path.Combine(_keyDirectory, "public.key");
+
+//            if (!Directory.Exists(_keyDirectory))
+//            {
+//                Directory.CreateDirectory(_keyDirectory);
+//            }
+//        }
+
+//        public bool HasKeys()
+//        {
+//            return File.Exists(_privateKeyPath) && File.Exists(_publicKeyPath);
+//        }
+
+//        public void GenerateAndStoreKeys(string password, byte[] salt)
+//        {
+//            var rsa = new RSACryptoServiceProvider(2048);
+//            var privateKey = rsa.ToXmlString(true);
+//            var publicKey = rsa.ToXmlString(false);
+
+//            var encryptedPrivateKey = EncryptPrivateKey(privateKey, password, salt);
+
+//            File.WriteAllBytes(_privateKeyPath, encryptedPrivateKey);
+//            File.WriteAllText(_publicKeyPath, publicKey);
+//        }
+
+//        public void StoreKeys(string privateKeyXml, string password, byte[] salt)
+//        {
+//            if (!Directory.Exists(_keyDirectory))
+//                Directory.CreateDirectory(_keyDirectory);
+
+//            var encryptedPrivateKey = EncryptPrivateKey(privateKeyXml, password, salt);
+//            File.WriteAllBytes(_privateKeyPath, encryptedPrivateKey);
+//        }
+
+//        public RSACryptoServiceProvider GetPrivateKeyProvider(string password)
+//        {
+//            if (!File.Exists(_privateKeyPath)) return null;
+
+//            try
+//            {
+//                var encryptedPrivateKey = File.ReadAllBytes(_privateKeyPath);
+//                var decryptedXml = DecryptPrivateKey(encryptedPrivateKey, password);
+
+//                var rsa = new RSACryptoServiceProvider();
+//                rsa.FromXmlString(decryptedXml);
+//                return rsa;
+//            }
+//            catch
+//            {
+//                return null;
+//            }
+//        }
+
+//        public string GetPublicKeyXml(string password)
+//        {
+//            if (!File.Exists(_publicKeyPath)) return null;
+
+//            return File.ReadAllText(_publicKeyPath);
+//        }
+
+//        private byte[] EncryptPrivateKey(string xml, string password, byte[] salt)
+//        {
+//            var key = new Rfc2898DeriveBytes(password, salt, 10000, HashAlgorithmName.SHA256).GetBytes(32);
+
+//            using (var aes = Aes.Create())
+//            {
+//                aes.Key = key;
+//                aes.GenerateIV();
+
+//                using (var ms = new MemoryStream())
+//                {
+//                    ms.Write(salt, 0, salt.Length);
+//                    ms.Write(aes.IV, 0, aes.IV.Length);
+
+//                    using (var cs = new CryptoStream(ms, aes.CreateEncryptor(), CryptoStreamMode.Write))
+//                    using (var sw = new StreamWriter(cs))
+//                    {
+//                        sw.Write(xml);
+//                    }
+
+//                    return ms.ToArray();
+//                }
+//            }
+//        }
+
+//        private string DecryptPrivateKey(byte[] data, string password)
+//        {
+//            var salt = new byte[32];
+//            var iv = new byte[16];
+//            Array.Copy(data, 0, salt, 0, 32);
+//            Array.Copy(data, 32, iv, 0, 16);
+
+//            var key = new Rfc2898DeriveBytes(password, salt, 10000, HashAlgorithmName.SHA256).GetBytes(32);
+
+//            using (var aes = Aes.Create())
+//            {
+//                aes.Key = key;
+//                aes.IV = iv;
+
+//                using (var ms = new MemoryStream(data, 48, data.Length - 48))
+//                using (var cs = new CryptoStream(ms, aes.CreateDecryptor(), CryptoStreamMode.Read))
+//                using (var sr = new StreamReader(cs))
+//                {
+//                    return sr.ReadToEnd();
+//                }
+//            }
+//        }
+//    }
+//}
+using System;
+using System.Data.SQLite;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
-using System.Windows.Forms;
-using System.Xml;
-using System.Xml.Serialization;
 
 namespace FileEncryptor
 {
     public class UserKeyStorage
     {
         private readonly string _username;
-        private readonly string _keysFile;
-        private const int KeySize = 2048;
-        private const int Iterations = 100000;
+        private readonly string _keyDirectory;
+        private readonly string _privateKeyPath;
+        private readonly string _publicKeyPath;
 
         public UserKeyStorage(string username)
         {
             _username = username;
-            _keysFile = Path.Combine("UserData", username, "keys.enc");
+            _keyDirectory = Path.Combine("UserData", username, "Keys");
+            _privateKeyPath = Path.Combine(_keyDirectory, "private.key");
+            _publicKeyPath = Path.Combine(_keyDirectory, "public.key");
+
+            if (!Directory.Exists(_keyDirectory))
+            {
+                Directory.CreateDirectory(_keyDirectory);
+            }
         }
 
         public bool HasKeys()
         {
-            return File.Exists(_keysFile);
+            return File.Exists(_privateKeyPath) && File.Exists(_publicKeyPath);
         }
 
         public void GenerateAndStoreKeys(string password, byte[] salt)
         {
-            using (var rsa = new RSACryptoServiceProvider(KeySize))
+            var rsa = new RSACryptoServiceProvider(2048);
+            var privateKey = rsa.ToXmlString(true);
+            var publicKey = rsa.ToXmlString(false);
+
+            var encryptedPrivateKey = EncryptPrivateKey(privateKey, password, salt);
+
+            File.WriteAllBytes(_privateKeyPath, encryptedPrivateKey);
+            File.WriteAllText(_publicKeyPath, publicKey);
+
+            // Обновление публичного ключа в базе данных
+            using (var conn = new SQLiteConnection(DatabaseHelper.ConnectionString))
             {
-                try
+                conn.Open();
+                using (var cmd = new SQLiteCommand("UPDATE Users SET PublicKey = @pk WHERE Username = @u", conn))
                 {
-                    var publicKey = rsa.ToXmlString(false);
-                    var privateKey = rsa.ToXmlString(true);
-
-                    var encryptedPrivateKey = EncryptData(privateKey, password, salt);
-
-                    var encryptedPublicKey = EncryptData(publicKey, password, salt);
-
-                    var keyData = new KeyData
-                    {
-                        EncryptedPublicKey = encryptedPublicKey,
-                        EncryptedPrivateKey = encryptedPrivateKey,
-                        Salt = Convert.ToBase64String(salt)
-                    };
-
-                    SaveKeyData(keyData);
-                }
-                finally
-                {
-                    rsa.PersistKeyInCsp = false;
+                    cmd.Parameters.AddWithValue("@pk", publicKey);
+                    cmd.Parameters.AddWithValue("@u", _username);
+                    cmd.ExecuteNonQuery();
                 }
             }
+        }
+
+        public void StoreKeys(string privateKeyXml, string password, byte[] salt)
+        {
+            if (!Directory.Exists(_keyDirectory))
+                Directory.CreateDirectory(_keyDirectory);
+
+            var encryptedPrivateKey = EncryptPrivateKey(privateKeyXml, password, salt);
+            File.WriteAllBytes(_privateKeyPath, encryptedPrivateKey);
         }
 
         public RSACryptoServiceProvider GetPrivateKeyProvider(string password)
         {
+            if (!File.Exists(_privateKeyPath)) return null;
+
             try
             {
-                var keyData = LoadKeyData();
-                if (keyData == null)
-                {
-                    MessageBox.Show("Файл ключей не найден. Создайте новые ключи.");
-                    return null;
-                }
+                var encryptedPrivateKey = File.ReadAllBytes(_privateKeyPath);
+                var decryptedXml = DecryptPrivateKey(encryptedPrivateKey, password);
 
-                var salt = Convert.FromBase64String(keyData.Salt);
-                var decryptedPrivateKey = DecryptData(keyData.EncryptedPrivateKey, password, salt);
-
-                if (string.IsNullOrEmpty(decryptedPrivateKey))
-                {
-                    MessageBox.Show("Неверный пароль. Попробуйте снова.");
-                    return null;
-                }
-
-                var rsa = new RSACryptoServiceProvider(2048);
-                rsa.FromXmlString(decryptedPrivateKey);
+                var rsa = new RSACryptoServiceProvider();
+                rsa.FromXmlString(decryptedXml);
                 return rsa;
-            }
-            catch (CryptographicException ex)
-            {
-                MessageBox.Show($"Ошибка дешифровки: {ex.Message}\nПроверьте пароль.");
-                return null;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка загрузки ключа: {ex.Message}");
-                return null;
-            }
-        }
-
-        public string GetPublicKeyXml(string password)
-        {
-            try
-            {
-                var keyData = LoadKeyData();
-                if (keyData == null || keyData.EncryptedPublicKey == null)
-                {
-                    MessageBox.Show("Файл ключей не найден или не содержит открытый ключ");
-                    return null;
-                }
-
-                var salt = Convert.FromBase64String(keyData.Salt);
-                return DecryptData(keyData.EncryptedPublicKey, password, salt);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка получения ключа: {ex.Message}");
-                return null;
-            }
-        }
-
-        private byte[] EncryptData(string data, string password, byte[] salt)
-        {
-            try
-            {
-                using (var aes = Aes.Create())
-                {
-                    var key = new Rfc2898DeriveBytes(password, salt, Iterations, HashAlgorithmName.SHA512);
-                    aes.Key = key.GetBytes(32);
-                    aes.IV = key.GetBytes(16);
-
-                    using (var ms = new MemoryStream())
-                    using (var cs = new CryptoStream(ms, aes.CreateEncryptor(), CryptoStreamMode.Write))
-                    {
-                        var bytes = Encoding.UTF8.GetBytes(data);
-                        cs.Write(bytes, 0, bytes.Length);
-                        cs.FlushFinalBlock();
-                        return ms.ToArray();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка шифрования: {ex.Message}");
-                return null;
-            }
-        }
-
-        private string DecryptData(byte[] encryptedData, string password, byte[] salt)
-        {
-            try
-            {
-                using (var aes = Aes.Create())
-                {
-                    var key = new Rfc2898DeriveBytes(password, salt, Iterations, HashAlgorithmName.SHA512);
-                    aes.Key = key.GetBytes(32);
-                    aes.IV = key.GetBytes(16);
-
-                    using (var ms = new MemoryStream())
-                    using (var cs = new CryptoStream(ms, aes.CreateDecryptor(), CryptoStreamMode.Write))
-                    {
-                        cs.Write(encryptedData, 0, encryptedData.Length);
-                        cs.FlushFinalBlock();
-                        return Encoding.UTF8.GetString(ms.ToArray());
-                    }
-                }
-            }
-            catch (CryptographicException)
-            {
-                MessageBox.Show("Неверный пароль или поврежденные данные");
-                return null;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка дешифровки: {ex.Message}");
-                return null;
-            }
-        }
-
-        private void SaveKeyData(KeyData keyData)
-        {
-            var serializer = new XmlSerializer(typeof(KeyData));
-            Directory.CreateDirectory(Path.GetDirectoryName(_keysFile));
-
-            using (var writer = new StreamWriter(_keysFile))
-            {
-                serializer.Serialize(writer, keyData);
-            }
-        }
-
-        private KeyData LoadKeyData()
-        {
-            if (!File.Exists(_keysFile)) return null;
-
-            try
-            {
-                var serializer = new XmlSerializer(typeof(KeyData));
-                using (var reader = new StreamReader(_keysFile))
-                {
-                    return (KeyData)serializer.Deserialize(reader);
-                }
             }
             catch
             {
@@ -199,16 +209,59 @@ namespace FileEncryptor
             }
         }
 
-        [Serializable]
-        public class KeyData
+        public string GetPublicKeyXml(string password)
         {
-            [XmlElement(DataType = "base64Binary")]
-            public byte[] EncryptedPublicKey { get; set; }
+            if (!File.Exists(_publicKeyPath)) return null;
 
-            [XmlElement(DataType = "base64Binary")]
-            public byte[] EncryptedPrivateKey { get; set; }
+            return File.ReadAllText(_publicKeyPath);
+        }
 
-            public string Salt { get; set; }
+        private byte[] EncryptPrivateKey(string xml, string password, byte[] salt)
+        {
+            var key = new Rfc2898DeriveBytes(password, salt, 10000, HashAlgorithmName.SHA256).GetBytes(32);
+
+            using (var aes = Aes.Create())
+            {
+                aes.Key = key;
+                aes.GenerateIV();
+
+                using (var ms = new MemoryStream())
+                {
+                    ms.Write(salt, 0, salt.Length);
+                    ms.Write(aes.IV, 0, aes.IV.Length);
+
+                    using (var cs = new CryptoStream(ms, aes.CreateEncryptor(), CryptoStreamMode.Write))
+                    using (var sw = new StreamWriter(cs))
+                    {
+                        sw.Write(xml);
+                    }
+
+                    return ms.ToArray();
+                }
+            }
+        }
+
+        private string DecryptPrivateKey(byte[] data, string password)
+        {
+            var salt = new byte[32];
+            var iv = new byte[16];
+            Array.Copy(data, 0, salt, 0, 32);
+            Array.Copy(data, 32, iv, 0, 16);
+
+            var key = new Rfc2898DeriveBytes(password, salt, 10000, HashAlgorithmName.SHA256).GetBytes(32);
+
+            using (var aes = Aes.Create())
+            {
+                aes.Key = key;
+                aes.IV = iv;
+
+                using (var ms = new MemoryStream(data, 48, data.Length - 48))
+                using (var cs = new CryptoStream(ms, aes.CreateDecryptor(), CryptoStreamMode.Read))
+                using (var sr = new StreamReader(cs))
+                {
+                    return sr.ReadToEnd();
+                }
+            }
         }
     }
 }

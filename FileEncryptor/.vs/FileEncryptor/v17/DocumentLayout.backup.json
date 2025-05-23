@@ -1,0 +1,179 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\nmart\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\Encryptor\\FileEncryptor\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{DB18A731-D3F5-4870-87F8-5CC084C4C43A}|FileEncryptor\\FileEncryptor.csproj|c:\\users\\nmart\\onedrive\\\u0440\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\encryptor\\fileencryptor\\fileencryptor\\fileencryptorform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DB18A731-D3F5-4870-87F8-5CC084C4C43A}|FileEncryptor\\FileEncryptor.csproj|solutionrelative:fileencryptor\\fileencryptorform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB18A731-D3F5-4870-87F8-5CC084C4C43A}|FileEncryptor\\FileEncryptor.csproj|C:\\Users\\nmart\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\Encryptor\\FileEncryptor\\fileencryptor\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DB18A731-D3F5-4870-87F8-5CC084C4C43A}|FileEncryptor\\FileEncryptor.csproj|solutionrelative:fileencryptor\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB18A731-D3F5-4870-87F8-5CC084C4C43A}|FileEncryptor\\FileEncryptor.csproj|C:\\Users\\nmart\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\Encryptor\\FileEncryptor\\fileencryptor\\filelogrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DB18A731-D3F5-4870-87F8-5CC084C4C43A}|FileEncryptor\\FileEncryptor.csproj|solutionrelative:fileencryptor\\filelogrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB18A731-D3F5-4870-87F8-5CC084C4C43A}|FileEncryptor\\FileEncryptor.csproj|C:\\Users\\nmart\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\Encryptor\\FileEncryptor\\fileencryptor\\database.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DB18A731-D3F5-4870-87F8-5CC084C4C43A}|FileEncryptor\\FileEncryptor.csproj|solutionrelative:fileencryptor\\database.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB18A731-D3F5-4870-87F8-5CC084C4C43A}|FileEncryptor\\FileEncryptor.csproj|C:\\Users\\nmart\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\Encryptor\\FileEncryptor\\fileencryptor\\encryptedfilerecord.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DB18A731-D3F5-4870-87F8-5CC084C4C43A}|FileEncryptor\\FileEncryptor.csproj|solutionrelative:fileencryptor\\encryptedfilerecord.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB18A731-D3F5-4870-87F8-5CC084C4C43A}|FileEncryptor\\FileEncryptor.csproj|C:\\Users\\nmart\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\Encryptor\\FileEncryptor\\fileencryptor\\bindinglistwithxmlserialization.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DB18A731-D3F5-4870-87F8-5CC084C4C43A}|FileEncryptor\\FileEncryptor.csproj|solutionrelative:fileencryptor\\bindinglistwithxmlserialization.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB18A731-D3F5-4870-87F8-5CC084C4C43A}|FileEncryptor\\FileEncryptor.csproj|C:\\Users\\nmart\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\Encryptor\\FileEncryptor\\fileencryptor\\userkeystorage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DB18A731-D3F5-4870-87F8-5CC084C4C43A}|FileEncryptor\\FileEncryptor.csproj|solutionrelative:fileencryptor\\userkeystorage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB18A731-D3F5-4870-87F8-5CC084C4C43A}|FileEncryptor\\FileEncryptor.csproj|C:\\Users\\nmart\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\Encryptor\\FileEncryptor\\fileencryptor\\loginform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DB18A731-D3F5-4870-87F8-5CC084C4C43A}|FileEncryptor\\FileEncryptor.csproj|solutionrelative:fileencryptor\\loginform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB18A731-D3F5-4870-87F8-5CC084C4C43A}|FileEncryptor\\FileEncryptor.csproj|C:\\Users\\nmart\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\Encryptor\\FileEncryptor\\fileencryptor\\loginform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{DB18A731-D3F5-4870-87F8-5CC084C4C43A}|FileEncryptor\\FileEncryptor.csproj|solutionrelative:fileencryptor\\loginform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DB18A731-D3F5-4870-87F8-5CC084C4C43A}|FileEncryptor\\FileEncryptor.csproj|C:\\Users\\nmart\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\Encryptor\\FileEncryptor\\fileencryptor\\fileencryptorform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{DB18A731-D3F5-4870-87F8-5CC084C4C43A}|FileEncryptor\\FileEncryptor.csproj|solutionrelative:fileencryptor\\fileencryptorform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "FileLogRepository.cs",
+              "DocumentMoniker": "C:\\Users\\nmart\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\Encryptor\\FileEncryptor\\FileEncryptor\\FileLogRepository.cs",
+              "RelativeDocumentMoniker": "FileEncryptor\\FileLogRepository.cs",
+              "ToolTip": "C:\\Users\\nmart\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\Encryptor\\FileEncryptor\\FileEncryptor\\FileLogRepository.cs",
+              "RelativeToolTip": "FileEncryptor\\FileLogRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-23T05:54:31.332Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Database.cs",
+              "DocumentMoniker": "C:\\Users\\nmart\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\Encryptor\\FileEncryptor\\FileEncryptor\\Database.cs",
+              "RelativeDocumentMoniker": "FileEncryptor\\Database.cs",
+              "ToolTip": "C:\\Users\\nmart\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\Encryptor\\FileEncryptor\\FileEncryptor\\Database.cs",
+              "RelativeToolTip": "FileEncryptor\\Database.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-23T05:54:26.69Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "BindingListWithXmlSerialization.cs",
+              "DocumentMoniker": "C:\\Users\\nmart\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\Encryptor\\FileEncryptor\\FileEncryptor\\BindingListWithXmlSerialization.cs",
+              "RelativeDocumentMoniker": "FileEncryptor\\BindingListWithXmlSerialization.cs",
+              "ToolTip": "C:\\Users\\nmart\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\Encryptor\\FileEncryptor\\FileEncryptor\\BindingListWithXmlSerialization.cs",
+              "RelativeToolTip": "FileEncryptor\\BindingListWithXmlSerialization.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-23T05:50:30.088Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "EncryptedFileRecord.cs",
+              "DocumentMoniker": "C:\\Users\\nmart\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\Encryptor\\FileEncryptor\\FileEncryptor\\EncryptedFileRecord.cs",
+              "RelativeDocumentMoniker": "FileEncryptor\\EncryptedFileRecord.cs",
+              "ToolTip": "C:\\Users\\nmart\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\Encryptor\\FileEncryptor\\FileEncryptor\\EncryptedFileRecord.cs",
+              "RelativeToolTip": "FileEncryptor\\EncryptedFileRecord.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-23T05:50:05.643Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\nmart\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\Encryptor\\FileEncryptor\\FileEncryptor\\Program.cs",
+              "RelativeDocumentMoniker": "FileEncryptor\\Program.cs",
+              "ToolTip": "C:\\Users\\nmart\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\Encryptor\\FileEncryptor\\FileEncryptor\\Program.cs",
+              "RelativeToolTip": "FileEncryptor\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-23T05:49:37.014Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "FileEncryptorForm.cs",
+              "DocumentMoniker": "C:\\Users\\nmart\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\Encryptor\\FileEncryptor\\FileEncryptor\\FileEncryptorForm.cs",
+              "RelativeDocumentMoniker": "FileEncryptor\\FileEncryptorForm.cs",
+              "ToolTip": "C:\\Users\\nmart\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\Encryptor\\FileEncryptor\\FileEncryptor\\FileEncryptorForm.cs",
+              "RelativeToolTip": "FileEncryptor\\FileEncryptorForm.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-23T05:49:17.492Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "LoginForm.cs",
+              "DocumentMoniker": "C:\\Users\\nmart\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\Encryptor\\FileEncryptor\\FileEncryptor\\LoginForm.cs",
+              "RelativeDocumentMoniker": "FileEncryptor\\LoginForm.cs",
+              "ToolTip": "C:\\Users\\nmart\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\Encryptor\\FileEncryptor\\FileEncryptor\\LoginForm.cs",
+              "RelativeToolTip": "FileEncryptor\\LoginForm.cs",
+              "ViewState": "AgIAACUBAAAAAAAAAAAIwFkBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-23T05:49:06.752Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "UserKeyStorage.cs",
+              "DocumentMoniker": "C:\\Users\\nmart\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\Encryptor\\FileEncryptor\\FileEncryptor\\UserKeyStorage.cs",
+              "RelativeDocumentMoniker": "FileEncryptor\\UserKeyStorage.cs",
+              "ToolTip": "C:\\Users\\nmart\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\Encryptor\\FileEncryptor\\FileEncryptor\\UserKeyStorage.cs",
+              "RelativeToolTip": "FileEncryptor\\UserKeyStorage.cs",
+              "ViewState": "AgIAAKIAAAAAAAAAAAAowNUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-23T05:48:57.367Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "FileEncryptorForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "DocumentMoniker": "C:\\Users\\nmart\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\Encryptor\\FileEncryptor\\FileEncryptor\\FileEncryptorForm.cs",
+              "RelativeDocumentMoniker": "FileEncryptor\\FileEncryptorForm.cs",
+              "ToolTip": "C:\\Users\\nmart\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\FileEncryptor\\FileEncryptor\\FileEncryptor\\FileEncryptorForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "RelativeToolTip": "..\\..\\FileEncryptor\\FileEncryptor\\FileEncryptor\\FileEncryptorForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-23T05:42:56.005Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "LoginForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "DocumentMoniker": "C:\\Users\\nmart\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\Encryptor\\FileEncryptor\\FileEncryptor\\LoginForm.cs",
+              "RelativeDocumentMoniker": "FileEncryptor\\LoginForm.cs",
+              "ToolTip": "C:\\Users\\nmart\\OneDrive\\\u0420\u0430\u0431\u043E\u0447\u0438\u0439 \u0441\u0442\u043E\u043B\\FileEncryptor\\FileEncryptor\\FileEncryptor\\LoginForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "RelativeToolTip": "..\\..\\FileEncryptor\\FileEncryptor\\FileEncryptor\\LoginForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-23T05:42:54.9Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

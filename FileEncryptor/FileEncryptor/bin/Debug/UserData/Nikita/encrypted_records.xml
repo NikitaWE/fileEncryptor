@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfFileRecord xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <FileRecord>
+    <EncryptDate>2025-05-23T08:47:13.0248011+03:00</EncryptDate>
+    <OriginalName>fdsfsfsdfsdf.txt</OriginalName>
+    <EncryptedPath>C:\Users\nmart\Downloads\fdsfsfsdfsdf.txt.enc</EncryptedPath>
+    <HashOfFile>232e9ed6a3df7d06...</HashOfFile>
+    <HashOfKey>00f66c3f73465140...</HashOfKey>
+    <IsOwnedKey>true</IsOwnedKey>
+  </FileRecord>
+</ArrayOfFileRecord>

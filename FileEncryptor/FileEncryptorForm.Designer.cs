@@ -156,7 +156,6 @@
             this.tabPageHistory.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRecords)).EndInit();
             this.ResumeLayout(false);
-
         }
 
         private System.Windows.Forms.TabControl tabControl;

@@ -1,14 +1,14 @@
 ﻿using System;
+using System.Data.SQLite;
 using System.IO;
 using System.Security.Cryptography;
+using System.Text;
 using System.Windows.Forms;
 
 namespace FileEncryptor
 {
     public partial class LoginForm : Form
     {
-        private const string UsersFile = "users.dat";
-        private const string DataFolder = "UserData";
         private bool _isLoggedIn = false;
         public bool IsExiting { get; private set; } = false;
         public string Username { get; private set; }
@@ -17,60 +17,20 @@ namespace FileEncryptor
         public LoginForm()
         {
             InitializeComponent();
-            CheckDataDirectory();
-        }
-
-        private void CheckDataDirectory()
-        {
-            try
-            {
-                if (!Directory.Exists(DataFolder))
-                {
-                    Directory.CreateDirectory(DataFolder);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка при создании директории данных: {ex.Message}",
-                              "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
 
         private void btnRegister_Click(object sender, EventArgs e)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(txtUsername.Text))
-                {
-                    MessageBox.Show("Введите имя пользователя", "Ошибка",
-                                  MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtUsername.Focus();
-                    return;
-                }
+                if (string.IsNullOrWhiteSpace(txtUsername.Text) || txtUsername.Text.Length < 4)
+                    throw new ArgumentException("Имя пользователя должно содержать минимум 4 символа");
 
-                if (string.IsNullOrWhiteSpace(txtPassword.Text))
-                {
-                    MessageBox.Show("Введите пароль", "Ошибка",
-                                  MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtPassword.Focus();
-                    return;
-                }
-
-                if (txtPassword.Text.Length < 6)
-                {
-                    MessageBox.Show("Пароль должен содержать минимум 6 символов", "Ошибка",
-                                  MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtPassword.Focus();
-                    return;
-                }
+                if (string.IsNullOrWhiteSpace(txtPassword.Text) || txtPassword.Text.Length < 6)
+                    throw new ArgumentException("Пароль должен содержать минимум 6 символов");
 
                 if (txtPassword.Text != txtConfirmPassword.Text)
-                {
-                    MessageBox.Show("Пароли не совпадают", "Ошибка",
-                                  MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtConfirmPassword.Focus();
-                    return;
-                }
+                    throw new ArgumentException("Пароли не совпадают");
 
                 RegisterUser(txtUsername.Text.Trim(), txtPassword.Text);
 
@@ -78,30 +38,11 @@ namespace FileEncryptor
                 txtPassword.Clear();
                 txtConfirmPassword.Clear();
 
-                MessageBox.Show("Регистрация прошла успешно! Теперь вы можете войти.",
-                              "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (ArgumentException ex)
-            {
-                MessageBox.Show(ex.Message, "Некорректные данные",
-                              MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            catch (InvalidOperationException ex)
-            {
-                MessageBox.Show(ex.Message, "Пользователь существует",
-                              MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            catch (ApplicationException ex)
-            {
-                MessageBox.Show(ex.Message, "Ошибка регистрации",
-                              MessageBoxButtons.OK, MessageBoxIcon.Error);
-                LogError(ex);
+                MessageBox.Show("Регистрация прошла успешно!", "Успех", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Произошла непредвиденная ошибка: {ex.Message}",
-                              "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                LogError(ex);
+                MessageBox.Show(ex.Message, "Ошибка регистрации", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -126,182 +67,87 @@ namespace FileEncryptor
                 {
                     _isLoggedIn = false;
                     this.Cursor = Cursors.Default;
-                    MessageBox.Show("Неверный логин или пароль", "Ошибка",
-                                  MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Неверный логин или пароль", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            }
-            catch (ObjectDisposedException)
-            {
-                Application.Exit();
-                Environment.Exit(1);
             }
             catch (Exception ex)
             {
                 _isLoggedIn = false;
                 this.Cursor = Cursors.Default;
-                MessageBox.Show($"Критическая ошибка: {ex.Message}\nПриложение будет закрыто.",
-                              "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Критическая ошибка: " + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Application.Exit();
                 Environment.Exit(1);
-            }
-            finally
-            {
-                if (!_isLoggedIn)
-                {
-                    this.Cursor = Cursors.Default;
-                }
-            }
-        }
-
-        private void LogError(Exception ex)
-        {
-            try
-            {
-                string logMessage = $"[{DateTime.Now}] Ошибка: {ex.Message}\n{ex.StackTrace}\n\n";
-                File.AppendAllText("error_log.txt", logMessage);
-            }
-            catch { /* Игнорируем ошибки логирования */ }
-        }
-
-        private bool UserExists(string username)
-        {
-            try
-            {
-                if (!File.Exists(UsersFile)) return false;
-
-                foreach (var line in File.ReadAllLines(UsersFile))
-                {
-                    if (string.IsNullOrWhiteSpace(line)) continue;
-
-                    var parts = line.Split('|');
-                    if (parts.Length > 0 && parts[0].Equals(username, StringComparison.OrdinalIgnoreCase))
-                    {
-                        return true;
-                    }
-                }
-                return false;
-            }
-            catch (Exception ex)
-            {
-                LogError(ex);
-                return true; // В случае ошибки считаем что пользователь существует
             }
         }
 
         private void RegisterUser(string username, string password)
         {
-            if (string.IsNullOrWhiteSpace(username) || username.Length < 4)
-                throw new ArgumentException("Имя пользователя должно содержать минимум 4 символа");
-
-            if (string.IsNullOrWhiteSpace(password) || password.Length < 6)
-                throw new ArgumentException("Пароль должен содержать минимум 6 символов");
-
-            if (username.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
-                throw new ArgumentException("Имя пользователя содержит недопустимые символы");
-
-            if (!Directory.Exists(DataFolder))
+            using (var conn = new SQLiteConnection(DatabaseHelper.ConnectionString))
             {
-                Directory.CreateDirectory(DataFolder);
-            }
+                conn.Open();
 
-            var salt = GenerateSalt();
-            var hashedPassword = HashPassword(password, salt);
-            var userRecord = $"{username}|{Convert.ToBase64String(salt)}|{Convert.ToBase64String(hashedPassword)}";
-
-            var tempFile = Path.GetTempFileName();
-            bool fileExists = File.Exists(UsersFile);
-
-            try
-            {
-                if (fileExists)
+                using (var checkCmd = new SQLiteCommand("SELECT COUNT(*) FROM Users WHERE Username = @u", conn))
                 {
-                    var existingLines = File.ReadAllLines(UsersFile);
-                    foreach (var line in existingLines)
-                    {
-                        if (!string.IsNullOrWhiteSpace(line))
-                        {
-                            var parts = line.Split('|');
-                            if (parts.Length > 0 && parts[0].Equals(username, StringComparison.OrdinalIgnoreCase))
-                            {
-                                throw new InvalidOperationException("Пользователь с таким именем уже зарегистрирован");
-                            }
-                        }
-                    }
-                    File.WriteAllLines(tempFile, existingLines);
+                    checkCmd.Parameters.AddWithValue("@u", username);
+                    if (Convert.ToInt32(checkCmd.ExecuteScalar()) > 0)
+                        throw new InvalidOperationException("Пользователь уже существует");
                 }
 
-                File.AppendAllText(tempFile, userRecord + Environment.NewLine);
+                var salt = GenerateSalt();
+                var hash = HashPassword(password, salt);
 
-                var userDir = Path.Combine(DataFolder, username);
-                Directory.CreateDirectory(userDir);
+                var rsa = new RSACryptoServiceProvider(2048);
+                var privateKeyXml = rsa.ToXmlString(true);
+                var publicKeyXml = rsa.ToXmlString(false);
 
-                if (fileExists)
+                var keyStorage = new UserKeyStorage(username);
+                keyStorage.StoreKeys(privateKeyXml, password, salt);
+
+                using (var insertCmd = new SQLiteCommand("INSERT INTO Users (Username, Salt, PasswordHash, PublicKey) VALUES (@u, @s, @h, @p)", conn))
                 {
-                    File.Replace(tempFile, UsersFile, null);
-                }
-                else
-                {
-                    File.Move(tempFile, UsersFile);
-                }
-            }
-            catch (IOException ex)
-            {
-                throw new ApplicationException($"Ошибка записи данных: {ex.Message}");
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                throw new ApplicationException($"Нет прав доступа: {ex.Message}");
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException($"Ошибка регистрации: {ex.Message}");
-            }
-            finally
-            {
-                if (File.Exists(tempFile))
-                {
-                    try { File.Delete(tempFile); } catch { }
+                    insertCmd.Parameters.AddWithValue("@u", username);
+                    insertCmd.Parameters.AddWithValue("@s", Convert.ToBase64String(salt));
+                    insertCmd.Parameters.AddWithValue("@h", Convert.ToBase64String(hash));
+                    insertCmd.Parameters.AddWithValue("@p", publicKeyXml);
+                    insertCmd.ExecuteNonQuery();
                 }
             }
         }
 
         private bool ValidateUser(string username, string password)
         {
-            try
+            using (var conn = new SQLiteConnection(DatabaseHelper.ConnectionString))
             {
-                if (!File.Exists(UsersFile)) return false;
+                conn.Open();
 
-                foreach (var line in File.ReadAllLines(UsersFile))
+                using (var cmd = new SQLiteCommand("SELECT Salt, PasswordHash FROM Users WHERE Username = @u", conn))
                 {
-                    if (string.IsNullOrWhiteSpace(line)) continue;
+                    cmd.Parameters.AddWithValue("@u", username);
 
-                    var parts = line.Split('|');
-                    if (parts.Length >= 3 && parts[0] == username)
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        var salt = Convert.FromBase64String(parts[1]);
-                        var storedHash = Convert.FromBase64String(parts[2]);
-                        var computedHash = HashPassword(password, salt);
+                        if (reader.Read())
+                        {
+                            var salt = Convert.FromBase64String(reader.GetString(0));
+                            var storedHash = Convert.FromBase64String(reader.GetString(1));
+                            var computedHash = HashPassword(password, salt);
 
-                        return CompareByteArrays(storedHash, computedHash);
+                            return CompareByteArrays(storedHash, computedHash);
+                        }
                     }
                 }
-                return false;
             }
-            catch (Exception ex)
-            {
-                LogError(ex);
-                return false;
-            }
+            return false;
         }
 
         private byte[] GenerateSalt()
         {
+            var salt = new byte[32];
             using (var rng = RandomNumberGenerator.Create())
             {
-                var salt = new byte[32];
                 rng.GetBytes(salt);
-                return salt;
             }
+            return salt;
         }
 
         private byte[] HashPassword(string password, byte[] salt)
@@ -314,14 +160,9 @@ namespace FileEncryptor
 
         private bool CompareByteArrays(byte[] a, byte[] b)
         {
-            if (a == null || b == null || a.Length != b.Length)
-                return false;
-
+            if (a.Length != b.Length) return false;
             for (int i = 0; i < a.Length; i++)
-            {
                 if (a[i] != b[i]) return false;
-            }
-
             return true;
         }
 
@@ -329,12 +170,9 @@ namespace FileEncryptor
         {
             if (e.CloseReason == CloseReason.UserClosing && !_isLoggedIn)
             {
-                var result = MessageBox.Show("Вы уверены, что хотите выйти?", "Подтверждение",
-                                           MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                var result = MessageBox.Show("Вы уверены, что хотите выйти?", "Выход", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.No)
-                {
                     e.Cancel = true;
-                }
                 else
                 {
                     Application.Exit();

@@ -8,6 +8,9 @@ namespace FileEncryptor
         [STAThread]
         static void Main()
         {
+            // Инициализация SQLite-базы данных
+            DatabaseHelper.InitializeDatabase();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
